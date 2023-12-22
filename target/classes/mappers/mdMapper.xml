@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="kr.co.dong.mdMapper">
+ 
+ 
+ <!-- 로그인 처리!-->  
+ <select id="login" parameterType="java.util.Map" resultType="java.util.Map">
+  		select uid, upw
+  		from user
+  		where uid=#{uid} and upw=#{upw}  		
+  	</select>	
+  	
+  	<!-- 전체목록  -->
+	<!-- <select id="list" resultType="MdDTO">
+		select *
+		from calendar
+	</select> --> 
+	
+<resultMap id="calendarRM" type="MdDTO">
+    <id property="user_uid" column="user_uid" />
+    <result property="CALENDAR_TITLE" column="CALENDAR_TITLE" />
+    <result property="CALENDAR_MEMO" column="CALENDAR_MEMO" />
+    <result property="CALENDAR_START" column="CALENDAR_START" />
+    <result property="CALENDAR_END" column="CALENDAR_END" />
+  </resultMap>
+  
+  <select id="calendarList" resultMap="calendarRM">
+		select *
+		from calendar 
+	where user_uid=#{user_uid}
+		
+		
+		
+	</select> 
+	
+	<insert id="insert" parameterType="MdDTO">
+		insert into calendar(CALENDAR_NO, CALENDAR_TITLE, CALENDAR_MEMO, CALENDAR_START,user_uid)
+		values (#{CALENDAR_NO}, #{CALENDAR_TITLE}, #{CALENDAR_MEMO},#{CALENDAR_START},#{user_uid})
+	</insert>
+
+	
+	<!-- 글 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM calendar
+		WHERE
+	    CALENDAR_NO=#{CALENDAR_NO}
+	</delete>
+  	
+  	<!-- <insert id="uinsert" parameterType="MdDTO">
+		insert into user(uid, upw, uname)
+		values (#{uid},#{upw},#{uname})
+	</insert> -->
+	
+	
+	
+	
+
+ 	
+	
+	
+ 
+   
+ 
+
+  </mapper>
+  
